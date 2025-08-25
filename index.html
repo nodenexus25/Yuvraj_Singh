@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Yuvraj Singh Rawal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <script>
+    // Tailwind theme extension (colors only for convenience)
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            mono: ["JetBrains Mono", "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
+            display: ["Poppins", "ui-sans-serif", "system-ui", "sans-serif"],
+          },
+          colors: {
+            base: {
+              900: "#0B0E13",
+              800: "#121620",
+              700: "#1B1E28",
+            },
+            accent: {
+              cyan: "#00BFA6",
+              purple: "#A259FF",
+              pink: "#FF2E88",
+              blue: "#375BFF",
+              orange: "#FF4C1E",
+            }
+          },
+          boxShadow: {
+            soft: "0 8px 30px rgba(0,0,0,.35)",
+          },
+          borderRadius: {
+            xl: "12px",
+            '2xl': "16px",
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root { --bg-top:#0B0E13; --bg-btm:#1B1E28; }
+    html.dark { color-scheme: dark; }
+    body { font-family: Poppins, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; }
+    /* Gradient page background */
+    .page-bg { background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-btm) 100%); }
+    /* Underline accents used in Expertise cards */
+    .underline-accent { position: relative; }
+    .underline-accent::after { content: ""; position: absolute; left: 0; bottom: -8px; height: 3px; width: 56px; border-radius: 9999px; }
+    .ua-pink::after { background: #FF2E88; }
+    .ua-blue::after { background: #375BFF; }
+    .ua-orange::after { background: #FF4C1E; }
+
+    /* Skills marquee */
+    .marquee { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+    .marquee-track { display: flex; gap: 3.5rem; align-items: center; animation: marquee 22s linear infinite; }
+    .marquee:hover .marquee-track { animation-play-state: paused; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* Tabs / filters */
+    .filter-btn[aria-pressed="true"] { background: rgba(162,89,255,.18); border-color: #A259FF; color: #fff; }
+
+    /* Simple fade/slide animations */
+    .reveal { opacity: 0; transform: translateY(16px); transition: all .6s ease; }
+    .reveal.revealed { opacity: 1; transform: none; }
+  </style>
+</head>
+<body class="page-bg text-white">
+  <!-- Sticky Nav -->
+  <header class="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-base-900/70 bg-base-900/90 border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+      <a href="#home" class="font-display text-xl tracking-wide select-none">
+        <span class="text-accent-cyan">Yuvraj_Singh</span><span class="text-white">._</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-8 font-mono text-xs md:text-[13px]">
+  <a class="hover:text-accent-cyan/90 transition" href="#home">// 01 home</a>
+  <a class="hover:text-accent-cyan/90 transition" href="#expertise">// 02 expertise</a>
+  <a class="hover:text-accent-cyan/90 transition" href="#work">// 03 work</a>
+  <a class="hover:text-accent-cyan/90 transition" href="#experience">// 04 experience</a>
+  <a class="hover:text-accent-cyan/90 transition" href="#contact">// 05 contact</a>
+</nav>
+
+      <div class="flex items-center gap-3">
+        <!-- Theme toggle -->
+        <button id="themeToggle" class="inline-flex items-center justify-center w-9 h-9 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 transition" aria-label="Toggle theme">
+          <svg id="sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5 hidden"><path fill="currentColor" d="M6.76 4.84l-1.8-1.79L3.17 4.84l1.79 1.79l1.8-1.79m10.48 0l1.79-1.79l1.79 1.79l-1.79 1.79l-1.79-1.79M12 4V1h-0v3h0m0 19v-3h0v3h0M4 12H1v0h3v0m19 0h-3v0h3v0M6.76 19.16l-1.8 1.79l-1.79-1.79l1.79-1.79l1.8 1.79m10.48 0l1.79 1.79l1.79-1.79l-1.79-1.79l-1.79 1.79M12 8a4 4 0 1 1 0 8a4 4 0 0 1 0-8Z"/></svg>
+          <svg id="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5"><path fill="currentColor" d="M12 2a9.99 9.99 0 0 0 0 20a9.5 9.5 0 0 1 0-20z"/></svg>
+        </button>
+        <button class="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10" id="openMenu" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="hidden md:hidden border-t border-white/5 bg-base-900/95">
+      <nav class="px-4 py-4 flex flex-col gap-3 font-mono text-sm">
+        <a class="hover:text-accent-cyan/90" href="#home">// 01 home</a>
+        <a class="hover:text-accent-cyan/90" href="#expertise">// 02 expertise</a>
+        <a class="hover:text-accent-cyan/90" href="#work">// 03 work</a>
+        <a class="hover:text-accent-cyan/90" href="#experience">// 04 experience</a>
+        <a class="hover:text-accent-cyan/90" href="#contact">// 05 contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+ <!-- Hero -->
+<section id="home" class="relative overflow-hidden mt-[-50px]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-0 pb-4 lg:pt-0 lg:pb-6 grid lg:grid-cols-2 gap-10 items-center">
+
+    <div class="reveal">
+      <p class="font-mono text-sm tracking-wider text-white/70">SOFTWARE ENGINEER, FRONT-END DEVELOPER & CYBER ANALYST</p>
+      <h1 class="mt-3 font-display text-5xl sm:text-6xl font-extrabold leading-[1.05]">Yuvraj<span class="text-accent-cyan">Singh Rawal</span></h1>
+      <p class="mt-5 text-white/70 max-w-lg font-mono">I am a dedicated developer and cybersecurity enthusiast with a passion for building scalable web platforms, secure applications, and immersive user experiences. Skilled in React, Next.js, FastAPI, penetration testing, and full-stack development.</p>
+      <div class="mt-8 flex items-center gap-3">
+        <a href="#work" class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-accent-purple text-white font-mono text-sm border border-accent-purple/60 shadow-soft hover:brightness-110 transition">View Work →</a>
+        <a href="#contact" class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-white/5 text-white font-mono text-sm border border-white/10 hover:bg-white/10 transition">Contact</a>
+      </div>
+
+      <!-- Featured logos row -->
+      <div class="mt-10 grid grid-cols-3 sm:grid-cols-5 gap-6">
+        <div class="h-12 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 
+                    flex items-center justify-center text-sm font-medium text-white/90
+                    shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+          Designer
+        </div>
+        <div class="h-12 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 
+                    flex items-center justify-center text-sm font-medium text-white/90
+                    shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+          Developer
+        </div>
+        <div class="h-12 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 
+                    flex items-center justify-center text-sm font-medium text-white/90
+                    shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+          Analyst
+        </div>
+        <div class="h-12 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 
+                    flex items-center justify-center text-sm font-medium text-white/90
+                    shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+          Coder
+        </div>
+        <div class="h-12 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 
+                    flex items-center justify-center text-sm font-medium text-white/90
+                    shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+          Learner
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero visual -->
+    <div class="reveal">
+      <img src="images/pp4.webp" 
+           alt="Hero image" 
+           class="w-full h-auto scale-90">
+    </div>
+
+  </div>
+</section>
+
+
+  <!-- expertise -->
+  <section id="Expertise" class="section-pad py-12 px-6 relative">
+    <!-- Title -->
+    <h1 class="text-center text-6xl font-extrabold mb-14">My Expertise</h1>
+
+    <!-- Cards -->
+    <div class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto relative z-10">
+
+      <!-- Card 1 -->
+      <div class="border border-gray-600 p-6 flex flex-col justify-start min-h-[280px]">
+        <div class="text-4xl mb-4">🖥️</div>
+        <h2 class="text-2xl font-bold mb-3 leading-snug">
+          <span class="text-pink-500 underline decoration-pink-500">Cybersecurity</span> & Testing
+        </h2>
+        <h3 class="text-gray-300 text-sm leading-relaxed border-l border-gray-500 pl-3">
+          EPenetration testing, vulnerability scanning, and building threat detection engines combining DLP, anomaly detection, and malware scanners.
+        </h3>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="border border-gray-600 p-6 flex flex-col justify-start min-h-[280px]">
+        <div class="text-4xl mb-4">⚛️</div>
+        <h2 class="text-2xl font-bold mb-3 leading-snug">
+          <span class="text-blue-400 underline decoration-blue-400">Frontend Dev</span> 
+        </h2>
+        <h3 class="text-gray-300 text-sm leading-relaxed border-l border-gray-500 pl-3">
+          Passionate about UI/UX. Over 2 years of development experience in HTML, CSS, JS, React and NextJS frameworks.
+        </h3>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="border border-gray-600 p-6 flex flex-col justify-start min-h-[280px]">
+        <div class="text-4xl mb-4">⚡</div>
+        <h2 class="text-2xl font-bold mb-3 leading-snug">
+          <span class="text-orange-400 underline decoration-orange-400">Full-Stack</span> Platforms
+        </h2>
+        <h3 class="text-gray-300 text-sm leading-relaxed border-l border-gray-500 pl-3">
+          Experienced in FastAPI, PostgreSQL, MongoDB, REST APIs, and WebSockets — delivering secure, data-driven platforms.
+        </h3>
+      </div>
+
+    </div>
+
+  
+    <!-- Floating Scroll-to-top button -->
+    <button class="fixed bottom-6 right-6 bg-white p-3 rounded-md shadow-lg">
+      <span class="text-purple-500 text-xl">↑</span>
+    </button>
+</section>
+
+  <!-- Skills carousel -->
+  <section id="skills" class="py-20 lg:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="mt-8 marquee">
+        <div class="marquee-track">
+          <!-- duplicate sequence for seamless loop -->
+          <img class="h-12 opacity-90" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React"/>
+          <img class="h-12 opacity-90" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" alt="Next"/>
+          <img class="h-12 opacity-90" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" alt="Tailwind"/>
+          <img class="h-12 opacity-90" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TS"/>
+          <img class="h-12 opacity-90" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node"/>
+          <img class="h-12 opacity-90" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python"/>
+          <img class="h-12 opacity-90" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker"/>
+          <img class="h-12 opacity-90" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux"/>
+          <!-- repeat -->
+          <img class="h-12 opacity-90" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React"/>
+          <img class="h-12 opacity-90" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" alt="Next"/>
+          <img class="h-12 opacity-90" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" alt="Tailwind"/>
+          <img class="h-12 opacity-90" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TS"/>
+          <img class="h-12 opacity-90" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node"/>
+          <img class="h-12 opacity-90" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python"/>
+          <img class="h-12 opacity-90" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker"/>
+          <img class="h-12 opacity-90" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux"/>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Work / Projects -->
+  <style>
+    /* Hover underline animation for filter */
+    .filter-link {
+      position: relative;
+      cursor: pointer;
+    }
+    .filter-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0%;
+      height: 2px;
+      background-color: #a855f7; /* purple */
+      transition: width 0.3s ease;
+    }
+    .filter-link:hover::after {
+      width: 100%;
+    }
+  </style>
+</head>
+<body class="bg-[#111111] text-white font-sans">
+
+  <!-- Work Section -->
+  
+<section id="work" class="px-6 md:px-20 py-20">
+
+
+    <!-- Heading + Featured -->
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      
+      <!-- Left Text -->
+      <div>
+        <h1 class="text-[64px] md:text-[84px] font-extrabold leading-tight tracking-tight">My<br>Work</h1>
+        <p class="mt-6 text-[16px] md:text-[18px] font-medium leading-relaxed text-gray-200 max-w-xl">
+          Deployed scalable travel, event and telemedicine web and hybrid mobile apps using React SPA and PWA. 
+          Collaborated in 140+ projects with 50+ clients all around the world. 
+          I am also interested in data analytics and visualization.
+        </p>
+      </div>
+
+      <!-- Right Featured Project -->
+      <div class="relative flex flex-col items-center">
+  <!-- Phone Image -->
+  <img src="images/p.png" 
+       alt="Phone Mockup" 
+       class="w-64 rotate-12 drop-shadow-2xl transition-transform duration-700 ease-in-out 
+              hover:scale-110 hover:rotate-6 hover:drop-shadow-[0_0_25px_rgba(168,85,247,0.7)] 
+              animate-float" />
+
+  <!-- Text + Button (directly under image) -->
+  <div class="mt-4 text-center">
+    <p class="text-gray-300 font-semibold">Featured Project</p>
+    <h3 class="text-2xl font-bold">Tryotel App</h3>
+    <button class="mt-3 bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-md font-medium transition">
+      View Project
+    </button>
+  </div>
+
+  <!-- Purple Arrow -->
+  <div class="absolute -left-16 top-1/3 transform -translate-y-1/2">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" 
+         viewBox="0 0 24 24" stroke-width="2.5" 
+         stroke="#A855F7" 
+         class="w-16 h-16 rotate-45 animate-pulse drop-shadow-[0_0_12px_rgba(168,85,247,0.8)]">
+      <path stroke-linecap="round" stroke-linejoin="round" 
+            d="M17 8l4 4m0 0l-4 4m4-4H3" />
+    </svg>
+  </div>
+</div>
+    </div>
+
+    <!-- Filter -->
+    <div class="mt-16 text-gray-300 text-[18px] flex gap-6 flex-wrap mb-10">
+      <span class="filter-link text-white font-semibold">All <sup class="text-sm text-gray-400">5</sup></span>
+      <span class="filter-link">Web Development <sup class="text-sm text-gray-400">5</sup></span>
+      <span class="filter-link">Cyber Security <sup class="text-sm text-gray-400">02</sup></span>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="grid md:grid-cols-3 gap-8">
+
+      <!-- Card 1 -->
+<a href="https://nodenexus25.github.io/Posh/" target="_blank" class="block">
+  <div class="bg-[#1a1a1a] rounded-lg overflow-hidden shadow-lg hover:scale-[1.02] transition cursor-pointer">
+    <img src="images/p1.png" alt="" class="w-full h-52 object-cover">
+    <div class="p-4">
+      <h3 class="font-semibold text-lg">The Journal Posh (E-com Store)</h3>
+      <p class="text-gray-400 text-sm">Web Development</p>
+    </div>
+  </div>
+</a>
+
+
+      <!-- Card 2 -->
+      <a href="https://nodenexus25.github.io/KAVYA/" target="_blank" class="block">
+  <div class="bg-[#1a1a1a] rounded-lg overflow-hidden shadow-lg hover:scale-[1.02] transition cursor-pointer">
+    <img src="images/p2.png" alt="" class="w-full h-52 object-cover">
+    <div class="p-4">
+      <h3 class="font-semibold text-lg">The Journal Posh (E-com Store)</h3>
+      <p class="text-gray-400 text-sm">Web Development</p>
+    </div>
+  </div>
+</a>
+
+      <!-- Card 3 -->
+      <div class="bg-[#1a1a1a] rounded-lg overflow-hidden shadow-lg hover:scale-[1.02] transition">
+        <img src="https://dummyimage.com/600x400/bbb/000&text=Khora+Consulting" alt="" class="w-full h-52 object-cover">
+        <div class="p-4">
+          <h3 class="font-semibold text-lg">Khora – Urban Thinkers Consulting</h3>
+          <p class="text-gray-400 text-sm">Cyber Security</p>
+        </div>
+      </div>
+
+      <!-- Card 4 (wide card spanning 2 columns, fixed 2:1.3 ratio) -->
+<div class="relative bg-[#1a1a1a] rounded-lg overflow-hidden shadow-lg hover:scale-[1.02] transition md:col-span-2 aspect-[2/1.3]">
+  <img src="images/p4.png" 
+       alt="" class="w-full h-full object-cover">
+  <div class="absolute bottom-0 left-0 bg-black/60 w-full p-4">
+    <h3 class="font-semibold text-lg">DLP – Data Leak Prevention App</h3>
+    <p class="text-gray-400 text-sm">Cyber Security</p>
+  </div>
+</div>
+
+<!-- Card 5 (normal card, unaffected by Card 4) -->
+ <a href="https://www.paschimi.in/" target="_blank" class="block">
+  <div class="bg-[#1a1a1a] rounded-lg overflow-hidden shadow-lg hover:scale-[1.02] transition cursor-pointer">
+    <img src="images/p3.png" alt="" class="w-full h-52 object-cover">
+    <div class="p-4">
+      <h3 class="font-semibold text-lg">Paschimi Apparels (E-com Store)</h3>
+      <p class="text-gray-400 text-sm">Web Development</p>
+    </div>
+  </div>
+</a>
+
+    </div>
+  </section>
+
+
+
+  <!-- Education -->
+  <section id="experience" class="section-pad">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <h2 class="font-display text-3xl sm:text-4xl font-extrabold">Education</h2>
+      <div class="mt-8 grid lg:grid-cols-2 gap-6">
+        <div class="space-y-4">
+          <details class="rounded-2xl border border-white/10 glass p-5 shadow-soft elevate" open>
+            <summary class="cursor-pointer font-display text-lg text-accent-purple">Senior Secondary • KDB Public School (2021–2022) →</summary>
+            <p class="font-mono text-sm text-white/75 mt-3">PCM (Physics, Chemistry, Maths) with a strong foundation in problem-solving and logical reasoning.</p>
+            <div class="mt-3 flex flex-wrap gap-2">
+              <span class="px-2 py-1 rounded bg-white/10 border border-white/10 text-xs font-mono">Physics</span>
+              <span class="px-2 py-1 rounded bg-white/10 border border-white/10 text-xs font-mono">Chemistry</span>
+              <span class="px-2 py-1 rounded bg-white/10 border border-white/10 text-xs font-mono">Maths</span>
+            </div>
+          </details>
+
+          <details class="rounded-2xl border border-white/10 glass p-5 shadow-soft elevate">
+            <summary class="cursor-pointer font-display text-lg text-accent-purple">B.Tech IT • Ajay Kumar Garg Engineering College (2022–2026)</summary>
+            <p class="font-mono text-sm text-white/75 mt-3">Focus: Data Structures, Cybersecurity, Full-Stack Development. Actively engaged in hands-on security projects.</p>
+            <div class="mt-3 flex flex-wrap gap-2">
+              <span class="px-2 py-1 rounded bg-white/10 border border-white/10 text-xs font-mono">Frontend</span>
+              <span class="px-2 py-1 rounded bg-white/10 border border-white/10 text-xs font-mono">CyberSecurity</span>
+              <span class="px-2 py-1 rounded bg-white/10 border border-white/10 text-xs font-mono">Full-Stack</span>
+            </div>
+          </details>
+          </div>
+
+          
+        <div class="grid sm:grid-cols-2 gap-4">
+          <figure class="rounded-2xl bg-accent-purple/25 border border-accent-purple/40 p-5 shadow-soft tilt elevate" data-tilt>
+            <blockquote class="font-display text-lg">“Awarded for excellence in academics with top performance in Physics & Mathematics, and represented the school in inter-school art competitions.”</blockquote>
+            <figcaption class="font-mono text-xs text-white/70 mt-3">K.D.B. Public School</figcaption>
+          </figure>
+
+          <figure class="rounded-2xl bg-blue-600/25 border border-blue-400/40 p-5 shadow-soft tilt elevate" data-tilt>
+            <blockquote class="font-display text-lg">“Built multiple real-world tech projects including a Data Loss Prevention (DLP) system and Smart City Dashboard; actively contributing as a Cybersecurity Analyst and Frontend Developer in student-led initiatives.”</blockquote>
+            <figcaption class="font-mono text-xs text-white/70 mt-3">Ajay Kumar Garg Engineering College</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section><br><br>
+
+  <!-- Experience -->
+  <section class="max-w-4xl mx-auto px-6 py-12">
+    <!-- Heading -->
+    <h2 class="text-4xl md:text-5xl font-bold text-center mb-12">
+      Professional <span class="block">Experience</span>
+    </h2>
+
+    <div class="space-y-4">
+      <!-- Card 1 -->
+      <div class="rounded-lg overflow-hidden border border-purple-700">
+        <button class="accordion-header flex items-center w-full bg-purple-700 px-6 py-4 text-left focus:outline-none">
+          <h3 class="font-semibold text-lg flex-1">Front-End Developer Intern @ RKGEPS Pvt. Ltd.</h3>
+          <span class="text-sm w-32 text-right">Jan,2025 – Mar,2025</span>
+          <span class="ml-4 text-xl accordion-icon">−</span>
+        </button>
+        <div class="accordion-content bg-[#1E1B3A] px-6 max-h-screen">
+          <div class="py-6">
+            <div class="flex flex-wrap items-center text-sm mb-4 space-x-4">
+              <span class="flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-purple-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 019.9 9.9l-4.243 4.243a1 1 0 01-1.414 0L5.05 13.95a7 7 0 010-9.9zm4.95-.707a8 8 0 00-5.657 13.657l4.243 4.243a2 2 0 002.828 0l4.243-4.243A8 8 0 0010 3.343z" clip-rule="evenodd"/>
+                </svg>
+                Pune, INDIA
+              </span>
+              <a href="https://lifecoachelevate.com" target="_blank" class="flex items-center gap-1 hover:underline">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-purple-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M12.293 2.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414L7.414 18H3v-4.414l10.293-10.293z"/>
+                </svg>
+                info@rkgreenenergy.in
+              </a>
+            </div>
+
+            <p class="text-gray-300 leading-relaxed mb-6">
+             Developed Dynamic UIs: Constructed highly responsive and intuitive User Interfaces using modern technologies including React, Tailwind CSS, and JavaScript, specifically implementing features like dynamic theme toggles and comprehensive administrative dashboards.
+Fostered Collaboration & UX: Engaged in close collaboration with design and development teams to craft pixel-perfect interfaces, consistently enriching the overall user experience and interactivity of web applications.
+            </p>
+
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-purple-700 text-white px-3 py-1 rounded-full text-sm">html</span>
+              <span class="bg-purple-700 text-white px-3 py-1 rounded-full text-sm">CSS</span>
+              <span class="bg-purple-700 text-white px-3 py-1 rounded-full text-sm">JS</span>
+              <span class="bg-purple-700 text-white px-3 py-1 rounded-full text-sm">React</span>
+              <span class="bg-purple-700 text-white px-3 py-1 rounded-full text-sm">NextJS</span>
+            </div><br>
+
+            
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="rounded-lg overflow-hidden border border-purple-700">
+        <button class="accordion-header flex items-center w-full bg-purple-700 px-6 py-4 text-left focus:outline-none">
+          <h3 class="font-semibold text-lg flex-1">Web Developer Intern @ Atomic House</h3>
+          <span class="text-sm w-32 text-right">Sept,2024 – Dec,2024</span>
+          <span class="ml-4 text-xl accordion-icon">+</span>
+        </button>
+        <div class="accordion-content bg-[#1E1B3A] px-6 max-h-0">
+          <div class="py-6">
+            <p class="text-gray-300">Enhanced Web Performance & SEO: Successfully engineered and optimized responsive WordPress websites, leading to a notable 35% increase in website traffic by significantly enhancing speed, mobile usability, and search engine optimization.
+Streamlined Operations: Automated key workflows and expertly customized plugins and themes, resulting in a remarkable 65% boost in operational efficiency and a substantial reduction in redundant tasks. (p. 1)
+Front-End Developer Intern.</p><br>
+
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-purple-700 text-white px-3 py-1 rounded-full text-sm">WordPress</span>
+              <span class="bg-purple-700 text-white px-3 py-1 rounded-full text-sm">Shopify</span>
+              <span class="bg-purple-700 text-white px-3 py-1 rounded-full text-sm">SEO</span>
+              <span class="bg-purple-700 text-white px-3 py-1 rounded-full text-sm">Web-Dev</span>
+              <span class="bg-purple-700 text-white px-3 py-1 rounded-full text-sm">UI/UX</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      
+
+      
+  <script>
+    const headers = document.querySelectorAll(".accordion-header");
+
+    headers.forEach(header => {
+      header.addEventListener("click", () => {
+        const content = header.nextElementSibling;
+        const icon = header.querySelector(".accordion-icon");
+
+        // Close all
+        document.querySelectorAll(".accordion-content").forEach(c => {
+          c.style.maxHeight = "0";
+        });
+        document.querySelectorAll(".accordion-icon").forEach(i => i.textContent = "+");
+
+        // Toggle selected
+        if (content.style.maxHeight === "0px" || !content.style.maxHeight) {
+          content.style.maxHeight = content.scrollHeight + "px";
+          icon.textContent = "−";
+        } else {
+          content.style.maxHeight = "0";
+          icon.textContent = "+";
+        }
+      });
+    });
+
+    // Expand the first one by default
+    document.querySelector(".accordion-content").style.maxHeight = document.querySelector(".accordion-content").scrollHeight + "px";
+  </script>
+  </section>
+<br>
+<br>
+
+   <!-- Additionnal -->
+  <section id="Additional" class="section-pad">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <h2 class="font-display text-3xl sm:text-4xl font-extrabold">Additional Initiatives</h2>
+      <div class="mt-10 grid md:grid-cols-3 gap-6">
+        <article class="rounded-2xl border border-white/10 glass p-6 shadow-soft tilt elevate" data-tilt>
+          <h3 class="font-display text-xl underline-accent ua-pink">E-com Store</h3>
+          <p class="font-mono text-sm text-white/70 mt-4">Founded an online Action Figures store(AnimeERA), fulfilling 300+ orders in 12 months.</p>
+        </article>
+        <article class="rounded-2xl border border-white/10 glass p-6 shadow-soft tilt elevate" data-tilt>
+          <h3 class="font-display text-xl underline-accent ua-blue">Web-Dev Agency</h3>
+          <p class="font-mono text-sm text-white/70 mt-4">Design-system driven UI, performance budgets, accessibility and motion.</p>
+        </article>
+        <article class="rounded-2xl border border-white/10 glass p-6 shadow-soft tilt elevate" data-tilt>
+          <h3 class="font-display text-xl underline-accent ua-orange">Cyber-Analysis</h3>
+          <p class="font-mono text-sm text-white/70 mt-4">Provided clients with detailed security reports on the applications with guidance on how to minimise vulnerabilities and attacks.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-20 lg:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="grid lg:grid-cols-2 gap-8 items-start">
+        <div>
+          <h2 class="font-display text-3xl sm:text-4xl font-extrabold">Available for select freelance opportunities</h2>
+          <p class="font-mono text-sm text-white/70 mt-3">Have an interesting product to build? Let's chat.</p>
+          <a href="mailto:hello@example.com" class="inline-block mt-4 font-mono text-sm text-accent-purple underline underline-offset-4">yuvrajsinghrawal004@gmail.com</a>
+          <div class="mt-6 flex flex-wrap gap-3 font-mono text-xs">
+            <a class="px-3 py-2 rounded-lg bg-white/5 border border-white/10" href="https://www.linkedin.com/in/yuvraj-singh-rawal-b4159a257">LinkedIn</a>
+            <a class="px-3 py-2 rounded-lg bg-white/5 border border-white/10" href="https://github.com/nodenexus25">GitHub</a>
+            
+          </div>
+            
+        </div>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <figure class="rounded-2xl bg-accent-purple/25 border border-accent-purple/40 p-5 shadow-soft">
+            <blockquote class="font-display text-lg">“Top‑notch quality and speed. Would hire again.”</blockquote>
+            <figcaption class="font-mono text-xs text-white/70 mt-3">Sarthak • Paschimi Apparels</figcaption>
+          </figure>
+          <figure class="rounded-2xl bg-blue-600/25 border border-blue-400/40 p-5 shadow-soft">
+            <blockquote class="font-display text-lg">“Great communication and attention to detail.”</blockquote>
+            <figcaption class="font-mono text-xs text-white/70 mt-3">Jayant • Passus Cronus</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-10 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="font-mono text-xs text-white/60">© <span id="year"></span> Yuvraj Sngh Rawal. All rights reserved.</p>
+      <p class="font-mono text-xs text-white/60"></p>
+    </div>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Theme toggle with persistence
+    const themeBtn = document.getElementById('themeToggle');
+    const sun = document.getElementById('sun');
+    const moon = document.getElementById('moon');
+    const setThemeIcons = () => {
+      const dark = document.documentElement.classList.contains('dark');
+      sun.classList.toggle('hidden', !dark);
+      moon.classList.toggle('hidden', dark);
+    };
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    }
+    setThemeIcons();
+    themeBtn.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+      setThemeIcons();
+    });
+
+    // Mobile menu
+    const openMenu = document.getElementById('openMenu');
+    const mobileMenu = document.getElementById('mobileMenu');
+    openMenu?.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+    // Intersection reveal
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); io.unobserve(e.target);} });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // Filters
+    const buttons = Array.from(document.querySelectorAll('.filter-btn'));
+    const cards = Array.from(document.querySelectorAll('.project-card'));
+    buttons.forEach(btn => btn.addEventListener('click', () => {
+      buttons.forEach(b=>b.setAttribute('aria-pressed','false'));
+      btn.setAttribute('aria-pressed','true');
+      const f = btn.dataset.filter;
+      cards.forEach(c=>{
+        const show = f === 'all' || c.dataset.tags.includes(f);
+        c.classList.toggle('hidden', !show);
+      });
+    }));
+  </script>
+</body>
+</html>
